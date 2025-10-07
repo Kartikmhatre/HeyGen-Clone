@@ -2,7 +2,7 @@
 
 ![alt text](thumbnail.png)
 
-[GitHub Repository](https://github.com/kartikmhatre)
+[GitHub Repository](https://github.com/kartikmhatre) 
 
 ## Overview
 
