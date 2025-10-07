@@ -1,6 +1,6 @@
 # Hey Gen Clone
 
-![alt text](thumbnail.png)
+![alt text](thumbnail.png) 
 
 [GitHub Repository](https://github.com/kartikmhatre) 
 
