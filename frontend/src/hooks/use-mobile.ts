@@ -1,19 +1,38 @@
-import * as React from "react"
+import { useEffect, useRef, useState } from "react";
 
-const MOBILE_BREAKPOINT = 768
+export function useAudioPlayer() {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [playingSrc, setPlayingSrc] = useState<string | null>(null);
 
-export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
+  useEffect(() => {
+    const audio = new Audio();
+    audioRef.current = audio;
 
-  React.useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    const handleEnded = () => setPlayingSrc(null);
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+      audio.pause();
+    };
+  }, []);
+
+  const togglePlay = (src: string) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (playingSrc === src) {
+      audio.pause();
+      setPlayingSrc(null);
+    } else {
+      audio.src = src;
+      audio.play().catch((e) => console.error("Error playing audio"));
+      setPlayingSrc(src);
     }
-    mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    return () => mql.removeEventListener("change", onChange)
-  }, [])
+  };
 
-  return !!isMobile
+  return {
+    playingSrc,
+    togglePlay,
+  };
 }
