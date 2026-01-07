@@ -7,7 +7,7 @@ from pydantic import BaseModel
 
 app = modal.App("file-to-s3")
 
-image = (
+image = ( 
     modal.Image.debian_slim(python_version="3.11")
     .apt_install("curl")
     .pip_install_from_requirements("file-to-s3/requirements.txt")
