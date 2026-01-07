@@ -20,7 +20,7 @@ class FileImportRequest(BaseModel):
     video_url: str
 
 
-class FileImportResponse(BaseModel):
+class FileImportResponse(BaseModel): 
     s3_key: str
 
 
